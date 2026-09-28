@@ -1,0 +1,11 @@
+{
+  "name": "precedent-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo \"No build step\"",
+    "preview": "echo \"Preview not configured\""
+  },
+  "dependencies": {}
+}

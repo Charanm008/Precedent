@@ -1,0 +1,23 @@
+# Node
+node_modules/
+.vite/
+# Python
+__pycache__/
+*.pyc
+env/
+venv/
+.venv/
+# IDE
+.vscode/
+.idea/
+# OS
+.DS_Store
+Thumbs.db
+# Env
+.env
+.env.local
+# Build
+dist/
+build/
+# Logs
+*.log
