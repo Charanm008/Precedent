@@ -1,40 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Precedent</title>
+    <title>frontend</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module">
-      import React from "https://esm.sh/react@18.2.0";
-      import ReactDOM from "https://esm.sh/react-dom@18.2.0";
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      async function fetchHealth() {
-        try {
-          const resp = await fetch("http://localhost:8000/health");
-          const data = await resp.json();
-          return data;
-        } catch (e) {
-          return { error: e.toString() };
-        }
-      }
-      function App() {
-        const [data, setData] = React.useState(null);
-        React.useEffect(() => {
-          fetchHealth().then(setData);
-        }, []);
-        if (!data) return <p>Loading...</p>;
-        if (data.error) return <p style={{color: "red"}}>Error: {data.error}</p>;
-        return (
-          <div style={{padding: "20px", fontFamily: "sans-serif"}}>
-            <h1>Precedent Frontend</h1>
-            <p>Backend health: {JSON.stringify(data)}</p>
-          </div>
-        );
-      }
-      root.render(<App />);
-    </script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
