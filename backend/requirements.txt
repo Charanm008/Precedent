@@ -7,3 +7,4 @@ pydantic>=2.0.0
 # Phase 2 - Hindsight memory (optional; backend continues without it)
 # hindsight-client
 httpx==0.23.0 
+pydantic-settings>=2.2.0
