@@ -1,5 +1,8 @@
-fastapi==0.110.0
-uvicorn==0.29.0
-python-dotenv==1.0.1
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-dotenv>=1.0.1
+sqlalchemy>=2.0.0
+pydantic>=2.0.0
 
-hindsight-client
+# Phase 2 - Hindsight memory (optional; backend continues without it)
+# hindsight-client

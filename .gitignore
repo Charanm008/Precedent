@@ -21,3 +21,6 @@ dist/
 build/
 # Logs
 *.log
+
+# SQLite databases
+*.db
