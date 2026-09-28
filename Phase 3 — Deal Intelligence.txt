@@ -1,0 +1,76 @@
+Phase 3 — Deal Intelligence
+
+Objective:
+Build the intelligence layer that combines current deal information with Hindsight memories to understand a deal, identify risks/opportunities, and generate an evidence-backed Next Best Action.
+
+Requirements:
+
+Implement/extend deal and customer models based on the existing Phase 1 architecture.
+Implement interaction ingestion and structured extraction of objections, requirements, commitments, stakeholders, and outcomes.
+Integrate the existing memory/recall.py and memory/memory_context.py modules to construct deal-specific historical context.
+Implement agents/deal_agent.py for deal analysis and reasoning.
+Implement agents/orchestrator.py for coordinating context retrieval → reasoning → recommendation.
+Implement structured Next Best Action generation containing action, priority, reasoning, and supporting evidence.
+Add the required FastAPI routes under backend/app/routes/.
+Keep the implementation modular so Phase 4 can add competitive/market intelligence without rewriting the deal agent.
+Add unit tests with mocked Hindsight/LLM calls.
+Verify the complete flow using a deterministic sample deal.
+Expected Deliverables
+backend/app/
+├── models/
+│   └── deal/customer/interaction models
+├── routes/
+│   ├── deals.py
+│   ├── interactions.py
+│   ├── intelligence.py
+│   └── recommendations.py
+└── services/
+    ├── deal_service.py
+    ├── interaction_service.py
+    ├── deal_context.py
+    └── recommendation_service.py
+
+agents/
+├── orchestrator.py
+├── deal_agent.py
+└── prompts.py
+
+tests/
+└── test_deal_intelligence.py
+
+docs/
+└── architecture.md
+Phase 3 Definition of Done
+
+Your teammate should not consider Phase 3 complete merely because the endpoints work.
+
+The actual demo flow needs to work:
+
+Select Deal
+     ↓
+Load Deal Information
+     ↓
+Recall Customer History from Hindsight
+     ↓
+Build Deal Context
+     ↓
+Analyze Risks / Objections / Opportunities
+     ↓
+Generate Next Best Action
+     ↓
+Show Reason + Evidence
+
+For example, Precedent should be able to answer:
+
+What should I do next with Acme Corp?
+
+and produce something like:
+
+Schedule a security review with the CTO.
+Security approval has become the primary blocker. The customer raised security concerns in two previous interactions, and the technical stakeholder has not yet participated in the evaluation.
+
+That is the core intelligence moment of the demo.
+
+Then the next phase can enrich this with:
+
+Market + Competitor + External Events → Better Recommendation.
