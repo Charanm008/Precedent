@@ -3,3 +3,7 @@ uvicorn>=0.29.0
 python-dotenv>=1.0.1
 pydantic>=2.6.0
 pydantic-settings>=2.2.0
+sqlalchemy>=2.0.0
+
+# Phase 2 - Hindsight memory (optional)
+# hindsight-client
