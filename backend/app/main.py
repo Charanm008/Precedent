@@ -20,6 +20,7 @@ from app.api.v1.router import api_router
 from .database import engine, Base
 from .routes import deals as deals_router
 from .routes import interactions as interactions_router
+from .routes.phase34_router import register_phase34_routes
 
 # Import models so SQLAlchemy registers them before create_all
 from .models import db_models  # noqa: F401
@@ -57,7 +58,8 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 # Phase 1 Deal/Interaction API
 app.include_router(deals_router.router)
 app.include_router(interactions_router.router)
-
+# Phase 3 & 4 Intelligence + AI Agents API
+register_phase34_routes(app)
 
 @app.get("/", summary="Root API Info")
 async def root():
