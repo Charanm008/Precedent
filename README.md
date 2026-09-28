@@ -516,21 +516,3 @@ The project combines:
 to create a sales assistant that becomes more context-aware as a deal progresses.
 
 ---
-
-# Status
-
-🚧 **Active Development**
-
-The core deal-management foundation is implemented, while the persistent-memory and AI intelligence layers continue to evolve.
-
----
-
-# License
-
-Add the project's chosen license here, for example:
-
-```text
-MIT License
-```
-
-if the repository is intended to be released under MIT.
