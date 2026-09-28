@@ -1,1 +1,52 @@
-const http = require('http');\nconst fs = require('fs');\nconst path = require('path');\nconst port = 5173;\nconst server = http.createServer((req, res) => {\n  let filePath = '.' + req.url;\n  if (filePath === './') filePath = './index.html';\n  const ext = path.extname(filePath);\n  let contentType = 'text/html';\n  switch (ext) {\n    case '.js':\n      contentType = 'text/javascript';\n      break;\n    case '.css':\n      contentType = 'text/css';\n      break;\n    case '.json':\n      contentType = 'application/json';\n      break;\n    case '.png':\n      contentType = 'image/png';\n      break;\n    case '.jpg':\n      contentType = 'image/jpeg';\n      break;\n  }\n  fs.readFile(filePath, (err, content) => {\n    if (err) {\n      if (err.code === 'ENOENT') {\n        fs.readFile('./404.html', (err, content) => {\n          res.writeHead(404, { 'Content-Type': 'text/html' });\n          res.end(content || '404 Not Found', 'utf-8');\n        });\n      } else {\n        res.writeHead(500);\n        res.end('Server Error: ' + err.code);\n      }\n    } else {\n      res.writeHead(200, { 'Content-Type': contentType });\n      res.end(content, 'utf-8');\n    }\n  });\n});\nserver.listen(port, () => {\n  console.log(Server running at http://localhost:/);\n});
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+const PORT = process.env.PORT || 5173;
+
+const MIME_TYPES = {
+  '.html': 'text/html',
+  '.js': 'text/javascript',
+  '.css': 'text/css',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon'
+};
+
+const server = http.createServer((req, res) => {
+  // Strip query parameters
+  const reqUrl = req.url.split('?')[0];
+  let filePath = path.join(__dirname, reqUrl === '/' ? 'index.html' : reqUrl);
+
+  const ext = path.extname(filePath);
+  const contentType = MIME_TYPES[ext] || 'text/plain';
+
+  fs.readFile(filePath, (err, content) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        // Fallback to index.html for SPA routing if available
+        fs.readFile(path.join(__dirname, 'index.html'), (indexErr, indexContent) => {
+          if (indexErr) {
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.end('<h1>404 Not Found</h1>', 'utf-8');
+          } else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(indexContent, 'utf-8');
+          }
+        });
+      } else {
+        res.writeHead(500);
+        res.end(`Server Error: ${err.code}`);
+      }
+    } else {
+      res.writeHead(200, { 'Content-Type': contentType });
+      res.end(content, 'utf-8');
+    }
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`Precedent Frontend running at http://localhost:${PORT}`);
+});
